@@ -1,11 +1,13 @@
 package com.example.homework
 
+import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import java.util.*
 
 class BookAdapter(arr: ArrayList<Book>): RecyclerView.Adapter<BookAdapter.ViewHolder>() {
@@ -18,13 +20,14 @@ class BookAdapter(arr: ArrayList<Book>): RecyclerView.Adapter<BookAdapter.ViewHo
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder!!.nameText.text = mData[position].nameBook
         holder.authorText.text = mData[position].author
-        holder.categoryText.text = mData[position].category.name
-        holder.descriptionText.text = mData[position].category.description
-        //TODO add img
+       // holder.categoryText.text = mData[position].category.name
+        //holder.descriptionText.text = mData[position].category.description
+       // holder.img.setImageDrawable(holder.view.context.resources.getDrawable(mData!![position].imgId, null))
+        Picasso.with(holder.view.context).load(mData[position].imgId).into(holder.img)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent!!.context).inflate(R.layout.book,null, false)
+        val view = LayoutInflater.from(parent!!.context).inflate(R.layout.book,parent, false)
         return ViewHolder(view)
     }
 

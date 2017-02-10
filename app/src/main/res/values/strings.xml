@@ -2,4 +2,7 @@
     <string name="app_name">Homework</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="category">"Choose category: "</string>
+    <string name="ok">"ОК"</string>
+    <string name="cancel">"CANCEL"</string>
 </resources>

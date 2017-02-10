@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,13 +21,19 @@ class MainActivity : AppCompatActivity() {
 
         val list = findViewById(R.id.list) as RecyclerView
         list.layoutManager = LinearLayoutManager(applicationContext)
-//        val data = Book().createArr()
-//        DbHelper.initDbHelper(applicationContext)
-//        DbHelper.addBook(books)
-//        DbHelper.closeDbHelper()
+        var data: ArrayList<Book>
+
+
 
         DbHelper.initDbHelper(applicationContext)
-        var data = DbHelper.getBook()
+        data = DbHelper.getBook()
+        if (data.isEmpty()){
+            data = Book().createArr()
+            DbHelper.addBook(data)
+        }
+
+      //  data = Book().createArr()
+        //DbHelper.addBook(data)
         val adapter = BookAdapter(data)
         list.adapter = adapter
 
@@ -64,6 +71,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        DbHelper.closeDbHelper()
+       //TODO Problem with close DataBase
     }
 }

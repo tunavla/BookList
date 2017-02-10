@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper
 import java.util.*
 
 
+
+
+
 class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION){
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {}
 
@@ -17,7 +20,7 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
         private val DB_VERSION = 1
         private val DB_COLUMN_NAME = "name"
         private val DB_COLUMN_AUTHOR = "author"
-        private val DB_COLUMN_CATEGORY = "category"
+        //private val DB_COLUMN_CATEGORY = "category"
         private val DB_COLUMN_DESCRIPTION = "description"
         private val DB_COLUMN_IMG = "img"
         private val DB_TABLE_BOOK = "book"
@@ -25,11 +28,11 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
                 DB_TABLE_BOOK + " ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 DB_COLUMN_NAME + " TEXT NOT NULL, " +
                 DB_COLUMN_AUTHOR + " TEXT, " +
-                DB_COLUMN_CATEGORY + " TEXT, " +
+               // DB_COLUMN_CATEGORY + " TEXT, " +
                 DB_COLUMN_IMG + " INTEGER, " +
                 DB_COLUMN_DESCRIPTION + " TEXT )"
 
-       public fun initDbHelper(context: Context?) {
+        fun initDbHelper(context: Context?) {
             if (db == null) {
                 dbHelper = DbHelper(context!!)
                 db = dbHelper!!.writableDatabase
@@ -37,37 +40,38 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
         }
 
 
-        public fun addBook(arr: ArrayList<Book>) {
+       fun addBook(arr: ArrayList<Book>) {
             for (book in arr) {
                 var cv = ContentValues()
                 cv.put(DB_COLUMN_NAME, book.nameBook)
                 cv.put(DB_COLUMN_AUTHOR, book.author)
-                cv.put(DB_COLUMN_CATEGORY, book.category.name)
-                cv.put(DB_COLUMN_DESCRIPTION, book.category.description)
+               // cv.put(DB_COLUMN_CATEGORY, book.category.name)
+                //cv.put(DB_COLUMN_DESCRIPTION, book.category.description)
                 cv.put(DB_COLUMN_IMG, book.imgId)
                 db!!.insert(DB_TABLE_BOOK, null, cv)
             }
         }
 
-        public fun addBook(book:Book){
+        fun addBook(book:Book){
             var cv = ContentValues()
             cv.put(DB_COLUMN_NAME, book.nameBook)
             cv.put(DB_COLUMN_AUTHOR, book.author)
-            cv.put(DB_COLUMN_CATEGORY, book.category.name)
-            cv.put(DB_COLUMN_DESCRIPTION, book.category.description)
+           // cv.put(DB_COLUMN_CATEGORY, book.category.name)
+            //cv.put(DB_COLUMN_DESCRIPTION, book.category.description)
             cv.put(DB_COLUMN_IMG, book.imgId)
             db!!.insert(DB_TABLE_BOOK, null, cv)
         }
 
-        public fun getBook(): ArrayList<Book> {
+        //TODO problem with getBook(), exactly with getCategory, I think
+        fun getBook(): ArrayList<Book> {
             val result = ArrayList<Book>()
             val resultQuery = db!!.query(DB_TABLE_BOOK, null, null, null, null, null, null, null)
             while (resultQuery.moveToNext()) {
                 result.add(Book(
                         resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_NAME)),
                         resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_AUTHOR)),
-                        resultQuery.getInt(resultQuery.getColumnIndex(DB_COLUMN_IMG)),
-                        Category.valueOf(resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_CATEGORY)))
+                        resultQuery.getInt(resultQuery.getColumnIndex(DB_COLUMN_IMG))//,
+                        //Category.valueOf(resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_CATEGORY)))
                 ))
             }
             return result
@@ -76,6 +80,10 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
         fun closeDbHelper() {
             db!!.close()
             dbHelper!!.close()
+        }
+
+        fun deleteAll(): Int {
+            return db!!.delete(DB_TABLE_BOOK, null, null)
         }
 
     }
