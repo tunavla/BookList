@@ -1,6 +1,8 @@
 package com.example.homework
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +26,11 @@ class BookAdapter(arr: ArrayList<Book>): RecyclerView.Adapter<BookAdapter.ViewHo
         //holder.descriptionText.text = mData[position].category.description
        // holder.img.setImageDrawable(holder.view.context.resources.getDrawable(mData!![position].imgId, null))
         Picasso.with(holder.view.context).load(mData[position].imgId).into(holder.img)
+        holder.view.setOnClickListener {
+            var intent = Intent(holder.view.context, AboutActivity::class.java)
+            intent.putExtra("KEY_ID" ,mData[position].nameBook)
+            startActivity(holder.view.context, intent, null)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

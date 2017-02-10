@@ -6,6 +6,11 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import java.util.*
 
+import android.provider.SyncStateContract.Helpers.update
+
+
+
+
 
 
 
@@ -28,7 +33,7 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
                 DB_TABLE_BOOK + " ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 DB_COLUMN_NAME + " TEXT NOT NULL, " +
                 DB_COLUMN_AUTHOR + " TEXT, " +
-               // DB_COLUMN_CATEGORY + " TEXT, " +
+                // DB_COLUMN_CATEGORY + " TEXT, " +
                 DB_COLUMN_IMG + " INTEGER, " +
                 DB_COLUMN_DESCRIPTION + " TEXT )"
 
@@ -40,23 +45,23 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
         }
 
 
-       fun addBook(arr: ArrayList<Book>) {
+        fun addBook(arr: ArrayList<Book>) {
             for (book in arr) {
                 var cv = ContentValues()
                 cv.put(DB_COLUMN_NAME, book.nameBook)
                 cv.put(DB_COLUMN_AUTHOR, book.author)
-               // cv.put(DB_COLUMN_CATEGORY, book.category.name)
+                // cv.put(DB_COLUMN_CATEGORY, book.category.name)
                 //cv.put(DB_COLUMN_DESCRIPTION, book.category.description)
                 cv.put(DB_COLUMN_IMG, book.imgId)
                 db!!.insert(DB_TABLE_BOOK, null, cv)
             }
         }
 
-        fun addBook(book:Book){
+        fun addBook(book: Book) {
             var cv = ContentValues()
             cv.put(DB_COLUMN_NAME, book.nameBook)
             cv.put(DB_COLUMN_AUTHOR, book.author)
-           // cv.put(DB_COLUMN_CATEGORY, book.category.name)
+            // cv.put(DB_COLUMN_CATEGORY, book.category.name)
             //cv.put(DB_COLUMN_DESCRIPTION, book.category.description)
             cv.put(DB_COLUMN_IMG, book.imgId)
             db!!.insert(DB_TABLE_BOOK, null, cv)
@@ -77,6 +82,15 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
             return result
         }
 
+        fun update(book: Book){
+            val cv = ContentValues()
+            cv.put(DB_COLUMN_NAME, book.nameBook)
+            cv.put(DB_COLUMN_AUTHOR, book.author)
+            db!!.update(DB_TABLE_BOOK,cv, DB_COLUMN_IMG+ "=" +book.imgId, null)
+
+        }
+
+
         fun closeDbHelper() {
             db!!.close()
             dbHelper!!.close()
@@ -86,8 +100,21 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
             return db!!.delete(DB_TABLE_BOOK, null, null)
         }
 
-    }
 
+        fun getBook(name: String): Book {
+            var result = Book()
+            val resultQuery = db!!.query(DB_TABLE_BOOK, null, null, null, null, null, null, null)
+            while (resultQuery.moveToNext()) {
+                if (name == resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_NAME)))
+                    result = Book(
+                            resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_NAME)),
+                            resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_AUTHOR)),
+                            resultQuery.getInt(resultQuery.getColumnIndex(DB_COLUMN_IMG))//,
+                    )
+            }
+            return result
+        }
+    }
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL(DB_CREATE_QUERY)
     }

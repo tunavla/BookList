@@ -5,7 +5,6 @@ import java.util.*
 
 class Book() {
 
-
     var nameBook = "Name"
     var author = "Author"
     var imgId = R.drawable.book
@@ -21,7 +20,7 @@ class Book() {
     }
      fun createArr(): ArrayList<Book> {
         val books= arrayListOf<Book>()
-        val b1 = Book( "Hidden Figures", "Margot Lee Shetterly", R.drawable.hidden_figures/*, Category.BIOGRAPHY*/)
+        val b1 = Book("Hidden Figures", "Margot Lee Shetterly", R.drawable.hidden_figures/*, Category.BIOGRAPHY*/)
         books.add(b1)
         val b2 = Book("Wonder", "R. J. Palacio", R.drawable.wonder/*,Category.CHILDREN*/)
         books.add(b2)

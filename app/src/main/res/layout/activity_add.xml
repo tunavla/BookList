@@ -25,6 +25,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="example: Harry Potter"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+
             android:textSize="20sp"
             android:id="@+id/add_name_text"
             />
@@ -44,7 +48,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="example: J. Rowling"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
             android:textSize="20sp"
+            android:maxLines="1"
             android:id="@+id/add_author_text"
             />
     </LinearLayout>

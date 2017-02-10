@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+
         val list = findViewById(R.id.list) as RecyclerView
         list.layoutManager = LinearLayoutManager(applicationContext)
         var data: ArrayList<Book>
