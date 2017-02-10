@@ -25,7 +25,7 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
         private val DB_VERSION = 1
         private val DB_COLUMN_NAME = "name"
         private val DB_COLUMN_AUTHOR = "author"
-        //private val DB_COLUMN_CATEGORY = "category"
+        private val DB_COLUMN_CATEGORY = "category"
         private val DB_COLUMN_DESCRIPTION = "description"
         private val DB_COLUMN_IMG = "img"
         private val DB_TABLE_BOOK = "book"
@@ -33,7 +33,7 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
                 DB_TABLE_BOOK + " ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 DB_COLUMN_NAME + " TEXT NOT NULL, " +
                 DB_COLUMN_AUTHOR + " TEXT, " +
-                // DB_COLUMN_CATEGORY + " TEXT, " +
+                DB_COLUMN_CATEGORY + " TEXT, " +
                 DB_COLUMN_IMG + " INTEGER, " +
                 DB_COLUMN_DESCRIPTION + " TEXT )"
 
@@ -50,8 +50,8 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
                 var cv = ContentValues()
                 cv.put(DB_COLUMN_NAME, book.nameBook)
                 cv.put(DB_COLUMN_AUTHOR, book.author)
-                // cv.put(DB_COLUMN_CATEGORY, book.category.name)
-                //cv.put(DB_COLUMN_DESCRIPTION, book.category.description)
+                 cv.put(DB_COLUMN_CATEGORY, book.category.name)
+                 cv.put(DB_COLUMN_DESCRIPTION, book.category.description)
                 cv.put(DB_COLUMN_IMG, book.imgId)
                 db!!.insert(DB_TABLE_BOOK, null, cv)
             }
@@ -61,8 +61,8 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
             var cv = ContentValues()
             cv.put(DB_COLUMN_NAME, book.nameBook)
             cv.put(DB_COLUMN_AUTHOR, book.author)
-            // cv.put(DB_COLUMN_CATEGORY, book.category.name)
-            //cv.put(DB_COLUMN_DESCRIPTION, book.category.description)
+            cv.put(DB_COLUMN_CATEGORY, book.category.name)
+            cv.put(DB_COLUMN_DESCRIPTION, book.category.description)
             cv.put(DB_COLUMN_IMG, book.imgId)
             db!!.insert(DB_TABLE_BOOK, null, cv)
         }
@@ -75,8 +75,8 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
                 result.add(Book(
                         resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_NAME)),
                         resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_AUTHOR)),
-                        resultQuery.getInt(resultQuery.getColumnIndex(DB_COLUMN_IMG))//,
-                        //Category.valueOf(resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_CATEGORY)))
+                        resultQuery.getInt(resultQuery.getColumnIndex(DB_COLUMN_IMG)),
+                        Category.valueOf(resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_CATEGORY)))
                 ))
             }
             return result
@@ -86,6 +86,8 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
             val cv = ContentValues()
             cv.put(DB_COLUMN_NAME, book.nameBook)
             cv.put(DB_COLUMN_AUTHOR, book.author)
+            cv.put(DB_COLUMN_CATEGORY, book.category.name)
+            cv.put(DB_COLUMN_DESCRIPTION, book.category.description)
             db!!.update(DB_TABLE_BOOK,cv, DB_COLUMN_IMG+ "=" +book.imgId, null)
 
         }
@@ -109,7 +111,8 @@ class DbHelper private constructor(context: Context):SQLiteOpenHelper(context, D
                     result = Book(
                             resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_NAME)),
                             resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_AUTHOR)),
-                            resultQuery.getInt(resultQuery.getColumnIndex(DB_COLUMN_IMG))//,
+                            resultQuery.getInt(resultQuery.getColumnIndex(DB_COLUMN_IMG)),
+                            Category.valueOf(resultQuery.getString(resultQuery.getColumnIndex(DB_COLUMN_CATEGORY)))
                     )
             }
             return result

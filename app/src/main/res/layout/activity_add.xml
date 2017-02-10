@@ -19,12 +19,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Book's name:"
+            android:text="@string/book_s_name"
             android:textSize="14sp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="example: Harry Potter"
+            android:hint="@string/example_harry_potter"
             android:imeOptions="actionDone"
             android:inputType="textCapWords"
             android:maxLines="1"
@@ -42,12 +42,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Author(s):"
+            android:text="@string/author_s"
             android:textSize="14sp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="example: J. Rowling"
+            android:hint="@string/example_j_rowling"
             android:imeOptions="actionDone"
             android:inputType="textCapWords"
             android:textSize="20sp"
@@ -63,19 +63,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Category:"
+            android:text="@string/categories"
             android:textSize="14sp" />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select category"
+            android:text="@string/choose_category"
             android:textSize="14sp"
             android:id="@+id/select_category_btn"/>
     </LinearLayout>
 <Button
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Add"
+    android:text="@string/add"
     android:id="@+id/add_btn"/>
 
 

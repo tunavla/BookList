@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name:"
+            android:text="@string/name"
             android:textSize="14sp"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"/>
@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Author(s):"
+            android:text="@string/author_s"
             android:textSize="14sp"
             android:paddingBottom="5dp"/>
         <TextView
@@ -41,7 +41,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Category:"
+            android:text="@string/categories"
             android:paddingBottom="5dp"/>
         <TextView
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Description"
+            android:text="@string/description"
             android:paddingBottom="5dp"/>
         <TextView
             android:layout_width="match_parent"

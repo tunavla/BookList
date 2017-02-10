@@ -22,12 +22,11 @@ class BookAdapter(arr: ArrayList<Book>): RecyclerView.Adapter<BookAdapter.ViewHo
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder!!.nameText.text = mData[position].nameBook
         holder.authorText.text = mData[position].author
-       // holder.categoryText.text = mData[position].category.name
-        //holder.descriptionText.text = mData[position].category.description
-       // holder.img.setImageDrawable(holder.view.context.resources.getDrawable(mData!![position].imgId, null))
+        holder.categoryText.text = mData[position].category.name
+        holder.descriptionText.text = mData[position].category.description
         Picasso.with(holder.view.context).load(mData[position].imgId).into(holder.img)
         holder.view.setOnClickListener {
-            var intent = Intent(holder.view.context, AboutActivity::class.java)
+            val intent = Intent(holder.view.context, AboutActivity::class.java)
             intent.putExtra("KEY_ID" ,mData[position].nameBook)
             startActivity(holder.view.context, intent, null)
         }

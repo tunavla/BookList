@@ -26,7 +26,8 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
-                android:id="@+id/about_img"/>
+                android:id="@+id/about_img"
+                android:contentDescription="@string/cover" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

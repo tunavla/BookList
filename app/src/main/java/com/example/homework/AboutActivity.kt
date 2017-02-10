@@ -29,10 +29,14 @@ class AboutActivity : AppCompatActivity() {
 
         var name = intent.getStringExtra("KEY_ID")
         val book = DbHelper.getBook(name)
-        Picasso.with(applicationContext).load(book.imgId).into(aboutImg)
+
 
         aboutName.text = book.nameBook
         aboutAuthor.text = book.author
+        Picasso.with(applicationContext).load(book.imgId).into(aboutImg)
+        aboutCategory.text = book.category.name
+        aboutDescription.text = book.category.description
+
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { view ->
            val intentEdit = Intent(applicationContext, AddActivity::class.java)
